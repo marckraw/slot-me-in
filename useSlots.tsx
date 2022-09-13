@@ -4,7 +4,7 @@ import React from 'react';
 import type { ReactNode, Fragment } from 'react';
 
 export type UseSlotsReturnType<Type> = {
-  [Property in keyof Type]: Property;
+  [Property in keyof Type]: Type[Property];
 };
 
 const isReactFragment = (variableToInspect) => {
