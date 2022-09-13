@@ -2,6 +2,8 @@
   "name": "use-slots",
   "version": "0.0.1",
   "main": "dist/useSlots.js",
+  "module": "./dist/useSlots.mjs",
+  "types": "./dist/useSlots.d.ts",
   "author": "marckraw <marckraw@icloud.com>",
   "description": "Kinda vue-like useSlots function, quite handicapped must say but (usually) works",
   "license": "MIT",
