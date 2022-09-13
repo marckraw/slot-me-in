@@ -1,0 +1,17 @@
+{
+  "name": "use-slots",
+  "version": "0.0.1",
+  "main": "dist/useSlots.js",
+  "author": "marckraw <marckraw@icloud.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup useSlots.tsx --dts --minify --format cjs,esm"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "tsup": "^6.2.3",
+    "typescript": "^4.8.3"
+  }
+}
