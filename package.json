@@ -7,6 +7,23 @@
   "author": "marckraw <marckraw@icloud.com>",
   "description": "Kinda vue-like useSlots function, quite handicapped must say but (usually) works",
   "license": "MIT",
+  "files": [
+    "dist/*"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/useSlots.js",
+      "import": "./dist/useSlots.mjs",
+      "types": "./dist/useSlots.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "./dist/*": [
+        "./dist/useSlots.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "build": "tsup useSlots.tsx --dts --minify --format cjs,esm"
   },
