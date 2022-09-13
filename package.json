@@ -1,6 +1,6 @@
 {
-  "name": "use-slots",
-  "version": "0.0.1",
+  "name": "@marckraw/use-slots",
+  "version": "0.0.2",
   "main": "dist/useSlots.js",
   "module": "./dist/useSlots.mjs",
   "types": "./dist/useSlots.d.ts",
