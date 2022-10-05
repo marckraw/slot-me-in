@@ -28,6 +28,12 @@ const useSlots = <TSlots,>(
       'type' in next
     ) {
       if (typeof next.type === 'function') {
+        if(next.props['data-slot']) {
+          return {
+            ...prev,
+            [next.props['data-slot']]: next,
+          };
+        }
         // ReactComponent, like ModalContent, ModalTrigger
         return {
           ...prev,
