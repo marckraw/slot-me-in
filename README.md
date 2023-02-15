@@ -2,6 +2,8 @@
 Kinda vue-like useSlots function, quite handicapped must say but (usually) works
 
 ```js
+import { useSlots } from 'slot-me-in';
+
 type Slots = {
   ComponentContent: FC<any>;
   Slot1: any;
