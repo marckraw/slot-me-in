@@ -20,7 +20,7 @@ const useSlots = <TSlots,>(
 ): UseSlotsReturnType<TSlots> => {
   const childrenArray = React.Children.toArray(children);
 
-  if(process.env.NEXT_PUBLIC_DEBUG === 'true') {
+  if(process?.env?.NEXT_PUBLIC_DEBUG === 'true') {
     log(childrenArray, 'slot-me-in IN')
   }
 
