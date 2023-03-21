@@ -2,7 +2,6 @@
 import React from 'react';
 // @ts-ignore
 import type { ReactNode, Fragment } from 'react';
-import {log} from "./debug-logging";
 
 export type UseSlotsReturnType<Type> = {
   [Property in keyof Type]: Type[Property];
@@ -20,9 +19,6 @@ const useSlots = <TSlots,>(
 ): UseSlotsReturnType<TSlots> => {
   const childrenArray = React.Children.toArray(children);
 
-  if(process?.env?.NEXT_PUBLIC_DEBUG === 'true') {
-    log(childrenArray, 'slot-me-in IN')
-  }
 
   const toSlots = childrenArray.reduce((prev, next) => {
     // ignoring direct string, number literal (every slot has to be wrapped in html element
@@ -61,10 +57,6 @@ const useSlots = <TSlots,>(
 
     return prev;
   }, {});
-
-  if(process.env.NEXT_PUBLIC_DEBUG === 'true') {
-    log(toSlots, 'slot-me-in OUT')
-  }
 
   // @ts-ignore
   return toSlots;
