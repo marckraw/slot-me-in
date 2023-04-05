@@ -28,7 +28,7 @@
     "build": "tsup useSlots.tsx --dts --minify --format cjs,esm"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^18.8.2",
