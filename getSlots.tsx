@@ -4,7 +4,7 @@ import React, { cloneElement, createElement } from "react";
 import type { ReactNode, Fragment } from "react";
 import { createLogger } from "./createLogger";
 
-export type UseSlotsReturnType<Type> = {
+export type GetSlotsReturnType<Type> = {
   [Property in keyof Type]: Type[Property];
 };
 
@@ -20,7 +20,7 @@ const logger = createLogger("getSlots");
 const getSlots = <TSlots,>(
   children: ReactNode | ReactNode[],
   slotNames: any,
-): UseSlotsReturnType<TSlots> => {
+): GetSlotsReturnType<TSlots> => {
   logger.box(children);
 
   const childrenArray = React.Children.toArray(children);
