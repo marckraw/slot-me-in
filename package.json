@@ -1,14 +1,15 @@
 {
   "name": "slot-me-in",
   "version": "1.2.0",
-  "main": "dist/getSlots.js",
+  "main": "./dist/getSlots.js",
   "module": "./dist/getSlots.mjs",
   "types": "./dist/getSlots.d.ts",
   "author": "marckraw <marckraw@icloud.com>",
   "description": "Kinda vue-like getSlots function, quite handicapped must say but (usually) works",
   "license": "MIT",
   "files": [
-    "dist/*"
+    "dist/*",
+    "package.json"
   ],
   "exports": {
     "getSlots": {
