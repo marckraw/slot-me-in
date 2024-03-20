@@ -1,38 +1,41 @@
 {
   "name": "slot-me-in",
-  "version": "0.2.0",
-  "main": "dist/useSlots.js",
-  "module": "./dist/useSlots.mjs",
-  "types": "./dist/useSlots.d.ts",
+  "version": "1.0.0",
+  "main": "dist/getSlots.js",
+  "module": "./dist/getSlots.mjs",
+  "types": "./dist/getSlots.d.ts",
   "author": "marckraw <marckraw@icloud.com>",
-  "description": "Kinda vue-like useSlots function, quite handicapped must say but (usually) works",
+  "description": "Kinda vue-like getSlots function, quite handicapped must say but (usually) works",
   "license": "MIT",
   "files": [
     "dist/*"
   ],
   "exports": {
     ".": {
-      "require": "./dist/useSlots.js",
-      "import": "./dist/useSlots.mjs",
-      "types": "./dist/useSlots.d.ts"
+      "require": "./dist/getSlots.js",
+      "import": "./dist/getSlots.mjs",
+      "types": "./dist/getSlots.d.ts"
     }
   },
   "typesVersions": {
     "*": {
       "./dist/*": [
-        "./dist/useSlots.d.ts"
+        "./dist/getSlots.d.ts"
       ]
     }
   },
   "scripts": {
-    "build": "tsup useSlots.tsx --dts --minify --format cjs,esm"
+    "build": "tsup getSlots.tsx --dts --minify --format cjs,esm"
   },
   "peerDependencies": {
     "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^18.8.2",
-    "tsup": "^6.2.3",
-    "typescript": "^4.8.3"
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "consola": "^3.2.3"
   }
 }

@@ -1,14 +1,15 @@
-# useSlots
-Kinda vue-like useSlots function, quite handicapped must say but (usually) works
+# getSlots
+Kinda vue-like getSlots function, (usually) works
 
 ```js
-import { useSlots } from 'slot-me-in';
+import {FirstComponent, SecondComponent, ThirdComponent} from './components';
+import { getSlots } from 'slot-me-in';
 
 type Slots = {
-  ComponentContent: FC<any>;
-  Slot1: any;
-  Slot2: any;
-}
+  FirstComponentSlot: ReactElement<typeof FirstComponent>;
+  SecondComponentSlot: ReactElement<typeof SecondComponent>;
+  ThirdComponentSlot: ReactElement<typeof ThirdComponent>;
+};
 
 /**
  *
@@ -16,20 +17,19 @@ type Slots = {
  *
  */
 const Example= () => {
-  const { ComponentContent, Slot1, Slot2 } = useSlots<Slots>(children);
-  // const { ComponentContent, Slot1, Slot2 } = useSlots<any>(children);
+  const { FirstComponentSlot, SecondComponentSlot } = useSlots<Slots>(children, {FirstComponent, SecondComponent, ThirdComponent});
 
   return (
     <SomeWrapperComponent>
-      <h2>{Slot2}</h2>
+      <h2>{FirstComponentSlot}</h2>
       <div>
         <h2>Some other stuff</h2>
         <p>Oh come oooooon</p>
       </div>
-      {Slot1}
+      {SecondComponentSlot}
       <Dialog.Portal>
         <Dialog.Overlay>
-          {ComponentContent}
+          {ThirdComponent}
         </Dialog.Overlay>
       </Dialog.Portal>
     </Dialog.Root>
@@ -42,14 +42,14 @@ const Example= () => {
 const Wrapper = () => {
   return (
     <Example>
-      <ComponentContent />
-      <div data-slot="Slot2">
+      <FirstComponent />
+      <div data-slot="SecondComponent">
         Some stuff in slot2
       </div>
-      <p data-slot="Slot1">Some text in slot 1</p>
+      <p data-slot="ThirdComponent">Some text in slot 1</p>
     </Example>
   )
 }
 ```
 
-This is purely for my internal needs
+This is purely for my internal needs, but if you find it useful, feel free to use it. It's not perfect, but it kinda (usually) works.
