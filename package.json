@@ -12,12 +12,12 @@
     "package.json"
   ],
   "exports": {
-    "getSlots": {
+    "./getSlots": {
       "require": "./dist/getSlots.js",
       "import": "./dist/getSlots.mjs",
       "types": "./dist/getSlots.d.ts"
     },
-    "useSlots": {
+    "./useSlots": {
       "require": "./dist/useSlots.js",
       "import": "./dist/useSlots.mjs",
       "types": "./dist/useSlots.d.ts"
