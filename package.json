@@ -1,9 +1,9 @@
 {
   "name": "slot-me-in",
   "version": "1.1.0",
-  "main": "dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "dist/getSlots.js",
+  "module": "./dist/getSlots.mjs",
+  "types": "./dist/getSlots.d.ts",
   "author": "marckraw <marckraw@icloud.com>",
   "description": "Kinda vue-like getSlots function, quite handicapped must say but (usually) works",
   "license": "MIT",
@@ -25,12 +25,12 @@
   "typesVersions": {
     "*": {
       "./dist/*": [
-        "./dist/index.d.ts"
+        "./dist/*.d.ts"
       ]
     }
   },
   "scripts": {
-    "build": "tsup index.tsx getSlots.tsx useSlots.tsx --dts --minify --format cjs,esm"
+    "build": "tsup getSlots.tsx useSlots.tsx --dts --minify --format cjs,esm"
   },
   "peerDependencies": {
     "react": "^18.2.0"
