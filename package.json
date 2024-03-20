@@ -24,8 +24,11 @@
   },
   "typesVersions": {
     "*": {
-      "./dist/*": [
-        "./dist/*.d.ts"
+      "useSlots": [
+        "./dist/useSlots.d.ts"
+      ],
+      "getSlots": [
+        "./dist/getSlots.d.ts"
       ]
     }
   },
