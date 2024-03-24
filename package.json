@@ -1,6 +1,6 @@
 {
   "name": "slot-me-in",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "main": "./dist/getSlots.js",
   "module": "./dist/getSlots.mjs",
   "types": "./dist/getSlots.d.ts",
