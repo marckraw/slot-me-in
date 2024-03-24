@@ -34,7 +34,7 @@
     }
   },
   "scripts": {
-    "build": "tsup getSlots.tsx useSlots.tsx --dts --minify --format cjs,esm"
+    "build": "rm -rf ./dist && tsup getSlots.tsx useSlots.tsx --dts --minify --format cjs,esm"
   },
   "peerDependencies": {
     "react": "^18.2.0"

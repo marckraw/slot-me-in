@@ -17,7 +17,9 @@ const isReactFragment = (variableToInspect: any) => {
 
 const logger = createLogger("getSlots");
 
-const checkOnClient = (current, component) => current.type === component
+const checkOnClient = (current, component) =>
+    current.type === component ||
+    current.type.displayName === component.displayName;
 const checkOnRSC = (current, component: React.ReactElement, componentName: string) => (current.type as any)?._payload?.value === component ||
     (current.type as any)?._payload?.value[2] === componentName
 
@@ -78,9 +80,6 @@ const getSlots = <TSlots,>(
          * */
         return isValidElement(current) && (checkOnClient(current, component) || checkOnRSC(current, component, componentName))
       });
-
-      logger.log("This is found slot: ")
-      logger.log(slotFound)
 
       if(slotFound) {
         const  [componentName] = slotFound;
