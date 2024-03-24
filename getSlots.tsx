@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, { cloneElement, createElement } from "react";
+import React, { isValidElement } from 'react';
 // @ts-ignore
 import type { ReactNode, Fragment } from "react";
 import { createLogger } from "./createLogger";
@@ -17,24 +17,34 @@ const isReactFragment = (variableToInspect: any) => {
 
 const logger = createLogger("getSlots");
 
+const checkOnClient = (current, component) => current.type === component
+const checkOnRSC = (current, component: React.ReactElement, componentName: string) => (current.type as any)?._payload?.value === component ||
+    (current.type as any)?._payload?.value[2] === componentName
+
 const getSlots = <TSlots,>(
   children: ReactNode | ReactNode[],
   slotNames: any,
 ): GetSlotsReturnType<TSlots> => {
-  logger.box(children);
-
   const childrenArray = React.Children.toArray(children);
-  logger.log(childrenArray);
 
-  const toSlots = childrenArray.reduce((acc, current) => {
-    // logger.box("current", current);
+  return childrenArray.reduce((acc, current) => {
     // ignoring direct string, number literal (every slot has to be wrapped in html element
     // and have data-slot="slot-name" prop, or be ReactComponent
     if (
       typeof current !== "number" &&
       typeof current !== "string" &&
-      "type" in current
+        isValidElement(current)
     ) {
+      /**
+       * Example:
+       * <div data-slot={'BlockquoteText'}>
+       *      Grass blades swirl pure in the fermenting.
+       *      Even the gate itself is a great cushion of the agreement.
+       *      Lorem ipsum pain sit, they cultivated the elite.
+       * </div>
+       *
+       * will return {BlockquoteTextSlot}
+       * */
       if (typeof current.type === "string") {
         return {
           ...acc,
@@ -49,69 +59,42 @@ const getSlots = <TSlots,>(
         };
       }
 
-      const slotNamesEntries = Object.entries(slotNames);
-
-      const foundOne = slotNamesEntries.find(([key, component]) => {
-        if (
-          current.type === component ||
-          (current.type as any)?._payload?.value === component ||
-          (current.type as any)?._payload?.value[2] === key
-        ) {
-          return {
-            ...acc,
-            [key]: current,
-          };
-        }
+      /**
+       * Here, we are looking for components by their displayName not data-slot prop.
+       * displayName is a property that is set on the component itself, and it's a string.
+       * It's quite tricky becasue it has to be handled differently on client and RSC side.
+       * */
+      const slotFound = Object.entries(slotNames).find(([componentName, component]) => {
+        /**
+         * This is a bit of a hack, but it works (uses internal react _payload, uhh...).
+         * We check if the current element is a ReactComponent, and if it is, we check if it's the component we're looking for.
+         * There are two ways to check if it's the component we're looking for:
+         * - client-side components have a type property that is the component itself
+         * - server-side components have a _payload property that contains the component, and the component is an array with the key as the third element
+         *   which is the name of the component we are checking against
+         *
+         * Important to note about that is that this is something that can change in future of React so make sure to start
+         * debugging from here if something breaks.
+         * */
+        return isValidElement(current) && (checkOnClient(current, component) || checkOnRSC(current, component, componentName))
       });
 
-      return {
-        ...acc,
-        [`${(foundOne as any)[0]}Slot`]: current,
-      };
+      logger.log("This is found slot: ")
+      logger.log(slotFound)
 
-      // if (
-      //   current.type === slotNames.Blockuq ||
-      //   current.type?._payload?.value === component ||
-      //   current.type?._payload?.value[2] === key
-      // ) {
-      //   return {
-      //     ...acc,
-      //     [key]: current,
-      //   };
-      // }
+      if(slotFound) {
+        const  [componentName] = slotFound;
 
-      // if (typeof current.type === "function") {
-      //   if (current.props["data-slot"]) {
-      //     return {
-      //       ...acc,
-      //       [current.props["data-slot"]]: current,
-      //     };
-      //   }
-      //   // ReactComponent, like ModalContent, ModalTrigger
-      //   return {
-      //     ...acc,
-      //     // @ts-ignore
-      //     [current.type.displayName]: current,
-      //   };
-      // } else if (isReactFragment(current)) {
-      //   return {
-      //     ...acc,
-      //     fragment: current,
-      //   };
-      // } else {
-      //   // ReactElement (span, div, h2, etc...)
-      //   return {
-      //     ...acc,
-      //     [current.props["data-slot"]]: current.props.children,
-      //   };
-      // }
+        return {
+          ...acc,
+          [`${componentName}Slot`]: current,
+        };
+      }
+
     }
 
     return acc;
   }, {});
-
-  // @ts-ignore
-  return toSlots;
 };
 
 export { getSlots };
