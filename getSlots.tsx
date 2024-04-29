@@ -54,6 +54,13 @@ const getSlots = <TSlots,>(
         };
       }
 
+      if(typeof  current.type !== "string" && current.props["data-slot"]) {
+        return {
+          ...acc,
+          [`${current.props["data-slot"]}Slot`]: current,
+        };
+      }
+
       if (isReactFragment(current)) {
         return {
           ...acc,
