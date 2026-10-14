@@ -53,3 +53,11 @@ const Wrapper = () => {
 ```
 
 This is purely for my internal needs, but if you find it useful, feel free to use it. It's not perfect, but it kinda (usually) works.
+
+## Releasing
+
+Releases are automated with [changesets](https://github.com/changesets/changesets).
+
+1. In your PR, run `npx changeset`, pick the bump type (patch / minor / major) and describe the change. Commit the generated `.changeset/*.md` file.
+2. When the PR is merged to `master`, the Release workflow opens (or updates) a **"chore: release"** PR that bumps the version and updates `CHANGELOG.md`.
+3. Merging that release PR publishes the new version to npm and creates a GitHub release + tag.

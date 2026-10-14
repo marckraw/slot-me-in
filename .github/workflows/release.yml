@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # npm trusted publishing (OIDC) + provenance
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm >= 11.5.1
+      - run: npm install -g npm@latest
+
+      - run: npm ci
+
+      - name: Create release PR or publish to npm
+        uses: changesets/action@v2
+        with:
+          version-script: npm run version-packages
+          publish-script: npm run release
+          pr-title: "chore: release"
+          commit-message: "chore: release"
+        env:
+          NPM_CONFIG_PROVENANCE: true
