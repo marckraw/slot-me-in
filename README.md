@@ -3,7 +3,7 @@ Kinda vue-like getSlots function, (usually) works
 
 ```js
 import {FirstComponent, SecondComponent, ThirdComponent} from './components';
-import { getSlots } from 'slot-me-in';
+import { useSlots } from 'slot-me-in/useSlots';
 
 type Slots = {
   FirstComponentSlot: ReactElement<typeof FirstComponent>;
