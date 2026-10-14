@@ -1,5 +1,11 @@
 # slot-me-in
 
+## 1.6.0
+
+### Minor Changes
+
+- b87671a: Drop the unused `consola` dependency (it was only used by a logger that never logged) and allow React 19 as a peer dependency (`^18.2.0 || ^19.0.0`).
+
 ## 1.5.3
 
 ### Patch Changes
