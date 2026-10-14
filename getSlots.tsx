@@ -2,7 +2,6 @@
 import React, { isValidElement } from 'react';
 // @ts-ignore
 import type { ReactNode, Fragment } from "react";
-import { createLogger } from "./createLogger";
 
 export type GetSlotsReturnType<Type> = {
   [Property in keyof Type]: Type[Property];
@@ -14,8 +13,6 @@ const isReactFragment = (variableToInspect: any) => {
   }
   return variableToInspect === React.Fragment;
 };
-
-const logger = createLogger("getSlots");
 
 const checkOnClient = (current, component) =>
     current.type === component ||
